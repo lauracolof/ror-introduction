@@ -1,0 +1,26 @@
+@import '~bootstrap/scss/bootstrap';
+
+.margin-top {
+  margin-top: 1.5em;
+}
+
+.field {
+  @extend .margin-top;
+  label {
+    @extend .text-uppercase;
+    @extend .text-secondary;
+  }
+  &:first-of-type {
+    margin-top: 0;
+  }
+  input {
+    @extend .from-control;
+    @extend .bg-light;
+  }
+  input[type='checkbox'] {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 0.5em;
+  }
+}

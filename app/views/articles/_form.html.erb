@@ -1,0 +1,26 @@
+<%# Accedemos a la variable desde la vista. Generamos el formulario: form_with, inicialmente pide un modelo, como article y el modelo en base a lo que mandemos, llena los campos que enviemos después.
+Ademas recibe un bloque de Ruby (abre en el do |form| y cierra en el end). El bloque define la variable form que nos permite construir los controles del form.  
+El objeto title toma la prop :title y el control de campo de texto, "llena" el form con lo que venga en title
+%> 
+
+<%# si no colocamos local:true al generar el form, se va a enviar con ajax %>
+<%= form_with(model: @article, local: true) do |form| %>
+
+  <div class='field'>
+    <%=form.label :title %>
+    <%=form.text_field :title %>
+  </div>
+
+    <%# <div> %>
+    <%# <%=form.label :content %> 
+    <%# <%=form.rich_text_area :content %>
+    <%# </div> %>
+
+
+  <div class='field'>
+  <%= form.submit %>  
+  <%# button, se enviará mi form con un título hacia el método create en articles/controllers %>
+  
+  </div>
+
+<% end %>
