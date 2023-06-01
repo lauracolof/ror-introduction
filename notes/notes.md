@@ -49,4 +49,20 @@ Uno de los usos es evitar la repetición de código, por ejemplo, en un CRUD, ev
 
 Son archivos que van a la vista, que por si solos no pueden ser desplegados, deben colocarse en una vista completa. Van dentro de las vistas completas, no puedo mostrar un parcial dentro de un controlador concretamente. Sirve para reciclar código duplicado. Se identifican por comenzar por un \_ en el nombre del archivo.
 
-# RENDER COLLECTIONS
+# USERS AUTHENTICATION - Devise
+
+Devise es la herramienta que la mayoria usa para autenthicación. Es una gema que se instala en el Gemfile:
+
+- Agregar " gem 'devise' " a Gemfile
+- bundle install,
+- **rails generate devise:install**: lo que ejecuta instalaciones y nos recomienda hacer configuraciones como en nuestro mailer, tener una ruta mensajes, etc.
+- **rails generate devise User**
+- **rails migrate:db**
+- genera automaticamente: "/users/sign_up"
+
+# WORK WITH ACTUAL SESSION:
+
+Cómo podemos saber si hay un user iniciado? Hay un método agregado por devise para saber si hay un user logueado, _user_signed_in?_ devuelve true or false.
+Una opción de una opción para tomar los datos del usuario es en index.html.erb:
+
+-

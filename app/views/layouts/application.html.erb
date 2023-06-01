@@ -13,6 +13,16 @@
   </head>
 
   <body>
+
+  <%# esta es la forma para condicionar que se imprima html o no, hen base a una condicion. %>
+    <% if notice %> 
+    <p class="alert alert-primary"> <%= notice %> </p>
+    <% end %>
+
+    <% if alert %>
+    <p class="alert alert-danger"> <%= alert %> </p>
+    <% end %>
+
     <%= render 'partials/nav'%>
     <%= yield %>
 
