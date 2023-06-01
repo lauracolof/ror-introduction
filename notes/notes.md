@@ -35,3 +35,18 @@ Es una forma de guardar texto enriquecido, que se puede modificar. Provee de dos
 
 - indicarle al modelo /models/article.rb que tiene un texto enriquecido **has_rich_text** y darle un identificador :(body, content, etc).
 - También debemos colocar el control de ActionText, el editor, podemos hacerlo con la etiqueta **form.rich_content** en el new.html.erb
+
+# BEFORE_ACTION & AFTER_ACTION
+
+Métodos que se mandan a llamar al nivel de la clase, y normalment ese colocan al inicio del controlador
+**Before action**: . Nos permite ejecutar un método antes de que se pase a la acción de un controlador, lo que va después de before action es el nombre del método que se va a ejecutar, puede ser string, pero normalmente se define como :simbolo.
+_before_action :find_article_. Se debe definir ese método, y cada vez que alguien entre a a cualquiera de las acciones de articles, se ejecutará el método.
+Uno de los usos es evitar la repetición de código, por ejemplo, en un CRUD, evitar buscar constantemente un :id para realizar tareas como get, patch, delete, etc
+
+**After action**: Inverso a before_action. Se utiliza menos, se ejecuta después de que los métodos se hayan ejecutado, se puede por ej, sobreescribir algo.
+
+# PARTIALS:
+
+Son archivos que van a la vista, que por si solos no pueden ser desplegados, deben colocarse en una vista completa. Van dentro de las vistas completas, no puedo mostrar un parcial dentro de un controlador concretamente. Sirve para reciclar código duplicado. Se identifican por comenzar por un \_ en el nombre del archivo.
+
+# RENDER COLLECTIONS
