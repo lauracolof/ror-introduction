@@ -65,4 +65,8 @@ Devise es la herramienta que la mayoria usa para autenthicación. Es una gema qu
 Cómo podemos saber si hay un user iniciado? Hay un método agregado por devise para saber si hay un user logueado, _user_signed_in?_ devuelve true or false.
 Una opción de una opción para tomar los datos del usuario es en index.html.erb:
 
--
+El método **authenticate_user** logra que antes de cada acción manda a llamar al método, si hay usuario deja pasar la acción y se muestra la vista, sino, redirecciona hacia la auth. y "obliga" a iniciar sesión o registrarse, si solo los usuarios que iniciaron sesion pueden crear, validar, o crear, etc, se puede utilizar con only, para determinar tareas sólo logueado.
+
+En **VIEWS** generar las vistas de devise con **rails generate devise:views** y se generan con archivos html.
+
+# RELATION 1:\*
