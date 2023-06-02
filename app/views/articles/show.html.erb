@@ -1,9 +1,19 @@
-<h1><%=@article.title%></h1>
-<div>
-  <%= @article.content %>
-</div>
+<div class='large-container center-block'> 
+  <h1><%=@article.title%></h1>
+  <div>
+    <p>Written by: 
+      <strong> 
+        <%= article.user %> 
+      </strong> 
+    </p>
+  </div>
+  <div>
+    <%= @article.content %>
+  </div>
 
-<div>
-  <%=link_to "Delete article", @article, method: :delete %>
-  <%# hay diferentes formas de redireccionar, rutas estáticas con /, por id: article_path(id:@article), etc  %>
+  <div>
+    <%=link_to "Delete article", @article, method: :delete %>
+    <%# hay diferentes formas de redireccionar, rutas estáticas con /, por id: article_path(id:@article), etc  %>
+  </div>
+
 </div>

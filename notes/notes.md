@@ -69,4 +69,66 @@ El método **authenticate_user** logra que antes de cada acción manda a llamar 
 
 En **VIEWS** generar las vistas de devise con **rails generate devise:views** y se generan con archivos html.
 
-# RELATION 1:\*
+# RELATION 1:M
+
+Relación usuarios - artículos: En otros frameworks tiene que configuarse y ser explícita, en ROR no hay convención, sino que un campo que hace referencia a otra tabla, tiene que llamarse el recurso del model, user*id, debe apuntar a articles_id, que identifica de manera única a los registros de cada tabla.
+Todas las modificaciones a la estructura de la DB se hacen a través de migraciones, colocando un nombre a la migración: "add_user_id_to_articles", se utilizan * y al final el nombre de la tabla a modificar, espacio, el campo a agregar como _user_id_ y el tipo de dato, como int. pero cuando hablamos de referencias lo mejor es usar el tipo references, "user:references", queremos una referencia hacia user **rails generate migration add_user_id_to_articles user:references**. Todo esto agrega las referencias, indica que el campo no puede ser null y una foreign_key, que por defecto asume que no puedes crear un article sin un user, se puede modificar. Una vez hecho esto, debemos migrar los cambios **rails db:migrate**. si la DB ya tiene creados los campos puede dar error y podemos poner default:1
+
+# Configure relation of models.
+
+Nos ofrece nuevos métodos entre la relación (articulos, usuarios). En la parte que es uno, que sería article. Va en donde va el campo adicional, :user_id. Por convención, nombre del otro modelo con minúsculas y singular :user. Y en el caso de has_many :articles.
+
+CONSOLA INTERACTIVA RAILS:
+
+> rails console
+> Article.last
+> (0.7ms) SELECT sqlite*version(*)
+> Article Load (0.2ms) SELECT "articles".\_ FROM "articles" ORDER BY "articles"."id" DESC LIMIT ? [["LIMIT", 1]]  
+> => #<Article id: 3, title: "Type here..", status: nil, created_at: "2023-05-31 23:01:34", updated_at: "2023-05-31 23:01:34", user_id: 1
+> User.find(1)
+> User Load (0.7ms) SELECT "users".\* FROM "users" WHERE "users"."id" = ? LIMIT ?
+
+# SAVE ARTICLE'S AUTHOR
+
+una opción es en la creación del articulo articles_controller.erb: pero así guardaríamos guardar dos veces el artículo, instanciarlo en la prop y después guardarlo en la db.
+
+```
+def create
+  @article = Article.create(
+    title: params[:article][:title],
+    content: params[:article][:content]
+  )
+  @article.user = current_user
+  @article.save
+end
+```
+
+otra opción: al momento de crear el articulo, es decirle cuál usuario lo está creando, current_user se encarga (es el que tiene sesión iniciada)
+
+```
+def create
+  @article = Article.create(
+    title: params[:article][:title],
+    content: params[:article][:content],
+    user: current_user
+  )
+end
+```
+
+ultima alternativa y mejor: la asigna rails por si mismo.
+
+```
+def create
+  @article = current_user.articles.create(
+    title: params[:article][:title],
+    content: params[:article][:content],
+    user: current_user
+  )
+end
+```
+
+# DISPLAY OBJECTS OF ASSOCIATIONS
+
+Acá no se usa current_user, sino @user, porque es la variable que mandamos desde el controller. Sólo queremos buscar un usuario según el id, y no por el que esté iniciado. Siempre que a render le pasemos una colección, va a buscar el mismo parcial, no improta si lo buscamos a traves del modelo, lo pasamos como asociación, etc.
+
+# STRONG PARAMS / GOOD PRACTICES

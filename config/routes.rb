@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'welcome', to: 'home#index'
   root to: 'home#index'
 
+  get "articles/user/:user_id", to: "articles#from_author"
+
   # la ruta /article/... no funcionara si no creamos primero la ruta /article, dará ERROR: Missing :controller key on routes definition, please... porque 
   get 'articles', to:'articles#index'
   post 'articles', to: 'articles#create'

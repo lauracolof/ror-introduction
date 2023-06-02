@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
 
-  before_action :find_article, except: [:new, :create, :index]
+  before_action :find_article, except: [:new, :create, :index, :from_author]
   # only sirve para decir en cuáles acciones actuará before action. También existe "except: []"
 
   def index 
@@ -17,9 +17,12 @@ class ArticlesController < ApplicationController
   def create
     # a create le debemos pasar un hash donde le indigamos que cree un articulo con un titulo, creará un nuevo registro en la db en la tabla Article con la columna "title". 
     # Podemos obtener el dato en el controllador utilizando params: 
-    @article = Article.create(title: params[:article][:title], content: params[:article][:content] )
+    @article = current_user.articles.create(
+      title: params[:article][:title], 
+      content: params[:article][:content] 
+    )
     #recibimos el parámetro que viene desde el control delform y crea el primer articulo. podemos guardarlo en una variable y la mostramos en json
-    render json: @article
+    redirect_to @article
     # obtenemos un json con id, title, status, create...
   end
 
@@ -45,6 +48,11 @@ class ArticlesController < ApplicationController
 
   def find_article 
     @article = Article.find(params[:id]) #gracias a este método find_article, nos ahorramos todas las lineas en las que se utilizaba arriba.
+  end
+
+  def from_author
+    @user = User.find(params[:user_id])
+  
   end
 
 end
