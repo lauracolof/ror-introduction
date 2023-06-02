@@ -152,3 +152,14 @@ REpresentational State Transfer. Existen limitantes que un sistema REST debe res
 - Sistema en capas: El servidor debe estar compuesto de distintas capas, cada una con una responsabilidad única y bien definida; por ejemplo: presentación y encargadas de la vista, datos encargados de la DB y la info, procesamientos de imágenes o video, filtrado de peticiones, etc. Las reglas indican que cada capa debe ser independiente lo que nos permitiría reemplazarla sin afectar a las demás. Además debe únicamente comunicarse con las capas adyacentes: si tenemos un sistema de capa de presentación, una manejadora de peticiones y una de datos, la de presentación no puede comunicarse directamente con la de datos porque no son adyancentes.
 - Interfaz uniforme: Junto con el Stateless, las dos más importantes de REST, este principio dicta el standard para la interface de comunicación entre el cliente y el servidor, estandarizar la interface permite que cada capa del sistema evolucione independientemente, ya que la comunicación es standard.
 - Código On Demand (única opcional): Pensado para que el servidor pueda enviar scripts de código, o "un objeto", para extender la funcionalidad del cliente.
+
+# SCAFFOLF
+
+Scaffold: Generador genera el CRUD de un modelo, se coloca el nombre del modelo en mayúsculas, el título, si es string no es necesario colocar el valor y el color para diferenciar cada modelo.
+**rails generate scaffold {nombreDeLaApp} title:{type}color:{string}**
+El Scaffold, va a generar: models, migration, controller, views, modificará las routes con un solo comando. El potencial de las convenciones hace que se puedan automatizar muchas cosas y mejorar la performance.
+
+# ASSOCIATION TABLE
+
+Generamos el modelo. **rails generate model HasCategory article:references category:references**
+Para que la tabla cree estos dos campos: **rails migrate:db**.
