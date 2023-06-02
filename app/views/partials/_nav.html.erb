@@ -5,12 +5,15 @@
     <li class='nav-item'>
     <%= link_to "Articles", articles_path, class:"nav-link" %>
   </li>
-    <li class='nav-item'>
-    <%= link_to "Write", new_articles_path, class:"nav-link" %>
-  </li>
+
 
   <%# método agregado por devise para saber si hay un user logueado, user_signed_in? devuelve true or false %>
     <% if user_signed_in? %>
+        <li class='nav-item'>
+    <%= link_to "Write", new_article_path, class:"nav-link" %>
+  </li>
+
+
       <li class='nav-item'>
       <%# para cerrar sesión debe ser el método delete  con el comando destroy_user_session y retorna un message: "signed out successfully" %>
       <%= link_to "Sign out", destroy_user_session_path, method: :delete, class:"nav-link" %>
