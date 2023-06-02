@@ -132,3 +132,12 @@ end
 Acá no se usa current_user, sino @user, porque es la variable que mandamos desde el controller. Sólo queremos buscar un usuario según el id, y no por el que esté iniciado. Siempre que a render le pasemos una colección, va a buscar el mismo parcial, no improta si lo buscamos a traves del modelo, lo pasamos como asociación, etc.
 
 # STRONG PARAMS / GOOD PRACTICES
+
+Los parámetros fuertes son una respuesta casi de defensa a un posible ataque de seguridad, por ejemplo, que en formularios hayan acciones maliciosas. Se pueden evitar por ejemplo, que alguien se de permisos de admin, manualmente editando el html de la consola.
+Rails introduce los strongs params en que la convención define el nombre del modelo en minúsculas_params. Y sobre esta parámetro que retorna un hash, definimos cuáles atributos están permitidos. Si se intenta enviar alguno que no esté permitido, rails lo ignora. Cuando entran cosas que no van dentro de los params, retorna "Unpermitted parameter: :{parametro}"
+
+```
+  def article_params
+    params.require(:article).permit(:title, :content)
+  end
+```

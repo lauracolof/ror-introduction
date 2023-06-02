@@ -17,10 +17,7 @@ class ArticlesController < ApplicationController
   def create
     # a create le debemos pasar un hash donde le indigamos que cree un articulo con un titulo, creará un nuevo registro en la db en la tabla Article con la columna "title". 
     # Podemos obtener el dato en el controllador utilizando params: 
-    @article = current_user.articles.create(
-      title: params[:article][:title], 
-      content: params[:article][:content] 
-    )
+    @article = current_user.articles.create(article_params)
     #recibimos el parámetro que viene desde el control delform y crea el primer articulo. podemos guardarlo en una variable y la mostramos en json
     redirect_to @article
     # obtenemos un json con id, title, status, create...
@@ -36,7 +33,8 @@ class ArticlesController < ApplicationController
 
   def update 
     # @article = Article.find(params[:id])
-    @article.update(title: params[:article][:title], content: params[:article][:content] )
+    @article.update(article_params)
+    redirect_to @article
     # update acá es un método del obj @article
   end
 
@@ -54,5 +52,9 @@ class ArticlesController < ApplicationController
     @user = User.find(params[:user_id])
   
   end
+
+  #strong params.
+  def article_params
+    params.require(:article).permit(:title, :content)  end
 
 end
