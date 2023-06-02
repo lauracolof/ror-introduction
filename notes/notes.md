@@ -141,3 +141,14 @@ Rails introduce los strongs params en que la convención define el nombre del mo
     params.require(:article).permit(:title, :content)
   end
 ```
+
+# WHAT IS REST?
+
+REpresentational State Transfer. Existen limitantes que un sistema REST debe respetar:
+
+- Arq. cliente-servidor: La idea es la separación entre responsabilidades entre cliente y servidor. El cliente no se preoocupa por la DB y el servidor no se preocupa por la interfaz yle estado de la misma. Beneficio: portabilidad de elementos; la interfaz puede ser multiplataforam y evolucionar independientemente del servidor, porque son independientes.
+- Que sea Stateless: No estado. Entre el cliente y el servidor no existe contexto, cada conexión debe ser independiente y nunca dependerá de peticiones anteriores. En cada petición el cliente debe enviar toda la información requerida para completarla. Beneficia el rendimiento del servidor, ya que no almacena información innecesaria, en cada petición llega la que necesita y es desechada al completar la petición.
+- Cacheability: Algunas respuestas pueden ser almacenadas en caché, para el servidor es importante saber cuáles peticiones pueden ser cacheadas y cuales no. Por cuánto tiempo, etc. Puede reducir las cargas del servidor cuando las peticiones no llegan y se resuelven en el caché mismo.
+- Sistema en capas: El servidor debe estar compuesto de distintas capas, cada una con una responsabilidad única y bien definida; por ejemplo: presentación y encargadas de la vista, datos encargados de la DB y la info, procesamientos de imágenes o video, filtrado de peticiones, etc. Las reglas indican que cada capa debe ser independiente lo que nos permitiría reemplazarla sin afectar a las demás. Además debe únicamente comunicarse con las capas adyacentes: si tenemos un sistema de capa de presentación, una manejadora de peticiones y una de datos, la de presentación no puede comunicarse directamente con la de datos porque no son adyancentes.
+- Interfaz uniforme: Junto con el Stateless, las dos más importantes de REST, este principio dicta el standard para la interface de comunicación entre el cliente y el servidor, estandarizar la interface permite que cada capa del sistema evolucione independientemente, ya que la comunicación es standard.
+- Código On Demand (única opcional): Pensado para que el servidor pueda enviar scripts de código, o "un objeto", para extender la funcionalidad del cliente.
